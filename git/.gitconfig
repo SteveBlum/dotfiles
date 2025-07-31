@@ -1,0 +1,11 @@
+[core]
+  editor = nvim
+  pager = cat
+[commit]
+	gpgsign = true
+[tag]
+  gpgsign = true
+[gpg]
+  program = gpg
+[init]
+  defaultBranch = main
