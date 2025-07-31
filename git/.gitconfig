@@ -1,8 +1,10 @@
+[include]
+  path = ~/.gitconfig.env
 [core]
   editor = nvim
   pager = cat
 [commit]
-	gpgsign = true
+  gpgsign = true
 [tag]
   gpgsign = true
 [gpg]
