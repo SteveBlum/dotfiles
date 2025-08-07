@@ -6,8 +6,7 @@ return {
   },
   config = function()
     local dap, dapui = require("dap"), require("dapui")
-
-    require("dapui").setup()
+    dapui.setup()
 
     dap.listeners.before.attach.dapui_config = function()
       dapui.open()
@@ -155,8 +154,8 @@ return {
     set({ "n", "t" }, "<F3>", dap.terminate)
     set({ "n", "t" }, "<F5>", dap.continue)
     set({ "n", "t" }, "<F10>", dap.step_over)
-    set({ "n", "t" }, "<F11>", dap.step_into)
-    set({ "n", "t" }, "<F12>", dap.step_out)
+    set({ "n", "t" }, "<F9>", dap.step_into)
+    set({ "n", "t" }, "<F8>", dap.step_out)
     set("n", "<leader>b", dap.toggle_breakpoint)
     set("n", "<leader>B", function()
       dap.toggle_breakpoint(vim.fn.input("Breakpoint Condition: "), nil, nil, true)
