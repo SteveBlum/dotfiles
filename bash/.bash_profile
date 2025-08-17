@@ -10,3 +10,5 @@ if [[ -f ~/.bashrc ]]; then
   source ~/.bashrc
 fi
 . "$HOME/.cargo/env"
+
+export PATH="$PATH:/home/steve/.local/bin"
