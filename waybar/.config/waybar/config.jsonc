@@ -82,8 +82,8 @@
     "menu": "on-click",
     "menu-file": "$HOME/.config/waybar/custom_modules/power_menu.xml",
     "menu-actions": {
-      "shutdown": "shutdown",
-      "reboot": "reboot",
+      "shutdown": "systemctl poweroff",
+      "reboot": "systemctl reboot",
       "suspend": "systemctl suspend",
       "hibernate": "systemctl hibernate",
     },
