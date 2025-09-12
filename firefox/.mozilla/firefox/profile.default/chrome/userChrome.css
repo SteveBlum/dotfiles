@@ -1,0 +1,39 @@
+@layer BasicPriority, HighPriority, VeryHighPriority;
+
+/* ---------- General styles ---------- */
+
+@import "modules/general_styles/wavefox_transparency_on_windows11.css" layer(BasicPriority)  /* supports() */ (-moz-platform: windows);
+@import "modules/general_styles/wavefox_transparency_on_windows10.css" layer(HighPriority)   /* supports() */ (-moz-platform: windows);
+@import "modules/general_styles/wavefox_transparency_on_linux.css"     layer(HighPriority)   /* supports() */ (-moz-platform: linux);
+@import "modules/general_styles/wavefox_web_page.css"                  layer(HighPriority); /* supports() -moz-pref("", false) */
+
+@import "modules/general_styles/firefox-csshacks/iconized_content_context_menu.css" layer(BasicPriority) /* supports() */ -moz-pref("WaveFox.Icons", 1);
+@import "modules/general_styles/firefox-csshacks/iconized_main_menu.css"            layer(BasicPriority) /* supports() */ -moz-pref("WaveFox.Icons", 1);
+@import "modules/general_styles/firefox-csshacks/iconized_places_context_menu.css"  layer(BasicPriority) /* supports() */ -moz-pref("WaveFox.Icons", 1);
+@import "modules/general_styles/firefox-csshacks/iconized_tabs_context_menu.css"    layer(BasicPriority) /* supports() */ -moz-pref("WaveFox.Icons", 1);
+@import "modules/general_styles/firefox-csshacks/iconized_textbox_context_menu.css" layer(BasicPriority) /* supports() */ -moz-pref("WaveFox.Icons", 1);
+@import "modules/general_styles/Firefox-UI-Fix/icons/Firefox-UI-Fix_icons.css"      layer(BasicPriority) /* supports() */ -moz-pref("WaveFox.Icons", 2);
+
+/* ---------- Horizontal tabs ---------- */
+
+@import "modules/horizontal_tabs/wavefox_tabs.css"                      layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_tabs_background_inactive.css"  layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_selected_tab_indicator.css"    layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_tab_media_icons_and_text.css"  layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_toolbar_buttons.css"           layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_tab_separators.css"            layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_tab_shadows.css"               layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_drag_space.css"                layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_toolbar_transparency.css"      layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_web_page.css"                  layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+
+@import "modules/horizontal_tabs/wavefox_one_line.css"                  layer(HighPriority)  /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+@import "modules/horizontal_tabs/wavefox_tabs_below_url.css"            layer(HighPriority)  /* supports() */ -moz-pref("sidebar.verticalTabs", false);
+
+/* ---------- Vertical tabs ---------- */
+
+@import "modules/vertical_tabs/wavefox_main_window.css"              layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", true);
+@import "modules/vertical_tabs/wavefox_browser_window.css"           layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", true);
+@import "modules/vertical_tabs/wavefox_tab_media_icons_and_text.css" layer(BasicPriority) /* supports() */ -moz-pref("sidebar.verticalTabs", true);
+
+/* ---------------------------------------- Third-party styles (Maximum priority) ---------------------------------------- */        
