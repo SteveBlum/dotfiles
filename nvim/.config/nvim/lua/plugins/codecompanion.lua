@@ -7,34 +7,36 @@ return {
   config = function()
     require("codecompanion").setup({
       adapters = {
-        gemini = function()
-          return require("codecompanion.adapters").extend("gemini", {
-            schema = {
-              model = {
-                default = "gemini-2.0-flash",
+        http = {
+          gemini = function()
+            return require("codecompanion.adapters").extend("gemini", {
+              schema = {
+                model = {
+                  default = "gemini-2.0-flash",
+                },
               },
-            },
-            env = {
-              api_key = function()
-                return os.getenv("GEMINI_API_KEY")
-              end,
-            },
-          })
-        end,
-        anthropic = function()
-          return require("codecompanion.adapters").extend("anthropic", {
-            schema = {
-              model = {
-                default = "claude-3-7-sonnet-latest",
+              env = {
+                api_key = function()
+                  return os.getenv("GEMINI_API_KEY")
+                end,
               },
-            },
-            env = {
-              api_key = function()
-                return os.getenv("CLAUDE_API_KEY")
-              end,
-            },
-          })
-        end,
+            })
+          end,
+          anthropic = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+              schema = {
+                model = {
+                  default = "claude-3-7-sonnet-latest",
+                },
+              },
+              env = {
+                api_key = function()
+                  return os.getenv("CLAUDE_API_KEY")
+                end,
+              },
+            })
+          end,
+        },
       },
       display = {
         chat = {

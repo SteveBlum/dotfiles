@@ -15,8 +15,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-      local lspconfig = require("lspconfig")
-      lspconfig.helm_ls.setup({
+      vim.lsp.config('helm_ls', {
         settings = {
           ['helm-ls'] = {
             yamlls = {
