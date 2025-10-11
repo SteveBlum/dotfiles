@@ -14,6 +14,7 @@ if [[ -r "$HOME/.bashrc.env" ]]; then
   . "$HOME/.bashrc.env"
 fi
 
+export ANTHROPIC_API_KEY=$CLAUDE_API_KEY
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye > /dev/null
