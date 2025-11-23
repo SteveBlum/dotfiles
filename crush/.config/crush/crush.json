@@ -14,7 +14,30 @@
       "models": [
         {
           "name": "gpt-oss 20B",
-          "id": "gpt-oss:20b",
+          "id": "gpt-oss-sdev:20b",
+          "context_window": 131072,
+          "default_max_tokens": 4096
+        },{
+          "name": "llama 3.1 8B",
+          "id": "llama3.1-sdev:8b",
+          "context_window": 131072,
+          "default_max_tokens": 4096
+        }
+      ]
+    },
+    "ollama-docker": {
+      "name": "Ollama (on Docker Host)",
+      "base_url": "http://host.docker.internal:11434/v1/",
+      "type": "openai-compat",
+      "models": [
+        {
+          "name": "gpt-oss 20B",
+          "id": "gpt-oss-sdev:20b",
+          "context_window": 131072,
+          "default_max_tokens": 4096
+        },{
+          "name": "llama 3.1 8B",
+          "id": "llama3.1-sdev:8b",
           "context_window": 131072,
           "default_max_tokens": 4096
         }
