@@ -1,3 +1,13 @@
 ANTHROPIC_HOST: https://api.anthropic.com
 GOOSE_PROVIDER: github_copilot
 GOOSE_MODEL: gpt-5-mini
+extensions:
+  developer:
+    enabled: true
+    type: builtin
+    name: developer
+    description: Code editing and shell access
+    display_name: Developer Tools
+    timeout: 300
+    bundled: true
+    available_tools: []
