@@ -9,6 +9,15 @@ return {
 		require("codecompanion").setup({
 			adapters = {
 				http = {
+					copilot = function()
+						return require("codecompanion.adapters").extend("copilot", {
+							schema = {
+								model = {
+									default = "gpt-5-mini",
+								},
+							},
+						})
+					end,
 					gemini = function()
 						return require("codecompanion.adapters").extend("gemini", {
 							schema = {
@@ -64,7 +73,7 @@ return {
 			},
 			strategies = {
 				chat = {
-					adapter = "anthropic",
+					adapter = "copilot",
 					tools = {
 						["mcp"] = {
 							-- calling it in a function would prevent mcphub from being loaded before it's needed
