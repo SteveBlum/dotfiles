@@ -1,6 +1,6 @@
 return {
   "mrcjkb/rustaceanvim",
-  version = "^5",
+  version = "^7",
   init = function()
     vim.g.rustaceanvim = {}
   end,
