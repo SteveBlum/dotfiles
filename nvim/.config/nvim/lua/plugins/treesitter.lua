@@ -1,6 +1,7 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
-	build = ":TSUpdate",
+	branch = "main",
+  build = ":TSUpdate",
 	config = function()
 		local ts = require("nvim-treesitter")
 		local parsers = {
