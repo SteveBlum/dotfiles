@@ -19,6 +19,11 @@ return {
 						additional_args = { "--hidden", "--fixed-strings" },
 					},
 				},
+        defaults = {
+          preview = {
+            treesitter = false,
+          },
+        },
 			})
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<C-p>", builtin.find_files, {})
