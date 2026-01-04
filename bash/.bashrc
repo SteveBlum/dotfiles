@@ -19,7 +19,7 @@ export GOOGLE_API_KEY=$GEMINI_API_KEY
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpg-connect-agent updatestartuptty /bye > /dev/null
-
+alias llm="opencode attach localhost:3010"
 
 # shellcheck shell=bash
 
