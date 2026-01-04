@@ -1,0 +1,14 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "server": {
+    "port": 3011,
+    "hostname": "0.0.0.0"
+  },
+  "model": "github-copilot/gpt-5-mini",
+  "small_model": "github-copilot/gpt-5-mini",
+  "theme": "tokyonight",
+  "permission": {
+    "edit": "ask",
+    "bash": "ask"
+  }
+}
