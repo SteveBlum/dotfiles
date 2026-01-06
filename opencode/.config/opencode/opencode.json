@@ -6,6 +6,19 @@
   },
   "model": "github-copilot/gpt-5-mini",
   "small_model": "github-copilot/gpt-5-mini",
+  "provider": {
+    "anthropic": {
+      "models": {},
+      "options": {
+        "apiKey": "{env:ANTHROPIC_API_KEY}"
+      }
+    },
+    "google": {
+      "options": {
+        "apiKey": "{env:GEMINI_API_KEY}"
+      }
+    }
+  },
   "theme": "tokyonight",
   "permission": {
     "edit": "ask",
