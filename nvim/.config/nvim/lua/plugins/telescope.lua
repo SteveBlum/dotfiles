@@ -7,15 +7,15 @@ return {
 			require("telescope").setup({
 				pickers = {
 					find_files = {
-						file_ignore_patterns = { "node_modules", ".git", ".venv" },
+						file_ignore_patterns = { "node_modules", "%.git/", ".venv" },
 						hidden = true,
 					},
 					grep_string = {
-						file_ignore_patterns = { "node_modules", ".git", ".venv" },
+						file_ignore_patterns = { "node_modules", "%.git/", ".venv" },
 						additional_args = { "--hidden", "--fixed-strings" },
 					},
 					live_grep = {
-						file_ignore_patterns = { "node_modules", ".git", ".venv" },
+						file_ignore_patterns = { "node_modules", "%.git/", ".venv" },
 						additional_args = { "--hidden", "--fixed-strings" },
 					},
 				},
