@@ -37,7 +37,12 @@
   },
   "theme": "tokyonight",
   "permission": {
-    "edit": "ask",
-    "bash": "ask"
+    "bash": {
+      "*": "allow",
+      "git commit *": "deny",
+      "git push": "deny",
+      "git stage *": "deny",
+      "rm *": "ask"
+    }
   }
 }
