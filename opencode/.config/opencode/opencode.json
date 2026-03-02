@@ -20,6 +20,25 @@
         "webfetch": true,
         "question": true
       }
+    },
+    "notetaker": {
+      "mode": "primary",
+      "description": "Creates and updates personal notes in Obsidian vault as Markdown files with YAML frontmatter.",
+      "model": "github-copilot/gpt-5-mini",
+      "prompt": "You are a notetaking assistant for Obsidian. For notetaking, use markdown and include YAML frontmatter with title and date. Use all available markdown features as well as Obsidian features such as tags. Obsidian notes are exclusively stored in /root/obsidian-vault. When you are triggered, first list the available files in this directory. Determine whether the topic can be added to an existing note - if not, create a new one.",
+      "temperature": 0.2,
+      "tools": {
+        "*": false,
+        "list": true,
+        "read": true,
+        "write": true,
+        "question": true
+      },
+      "permission": {
+        "external_directory": {
+          "/root/obsidian-vault/*": "allow"
+        }
+      }
     }
   },
   "provider": {
