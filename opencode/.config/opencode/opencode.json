@@ -55,6 +55,12 @@
   },
   "theme": "tokyonight",
   "permission": {
+   "external_directory": {
+      "/tmp/**": "allow"
+    },
+    "edit": {
+      "/tmp/**": "allow"
+    },
     "bash": {
       "*": "allow",
       "git commit *": "deny",
