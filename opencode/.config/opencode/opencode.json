@@ -1,7 +1,9 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-gemini-auth@latest", "./plugins/superpowers/.opencode/plugins/superpowers.js"],
-  "theme": "system",
+  "plugin": [
+    "opencode-gemini-auth@latest",
+    "./plugins/superpowers/.opencode/plugins/superpowers.js"
+  ],
   "server": {
     "port": 3010,
     "hostname": "0.0.0.0"
