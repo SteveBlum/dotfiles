@@ -47,20 +47,6 @@ return {
 						})
 					end,
 				},
-				acp = {
-					gemini_cli = function()
-						return require("codecompanion.adapters").extend("gemini_cli", {
-							defaults = {
-								auth_method = "gemini-api-key",
-							},
-							env = {
-								GEMINI_API_KEY = function()
-									return os.getenv("GEMINI_API_KEY")
-								end,
-							},
-						})
-					end,
-				},
 			},
 			display = {
 				chat = {
@@ -71,21 +57,12 @@ return {
 					},
 				},
 			},
-			strategies = {
+			interactions = {
 				chat = {
-					adapter = "copilot",
-					tools = {
-						["mcp"] = {
-							-- calling it in a function would prevent mcphub from being loaded before it's needed
-							callback = function()
-								return require("mcphub.extensions.codecompanion")
-							end,
-							description = "Call tools and resources from the MCP Servers",
-						},
+					adapter = {
+						name = "opencode",
+						model = "github-copilot/gpt-5-mini",
 					},
-				},
-				inline = {
-					adapter = "gemini",
 				},
 			},
 		})

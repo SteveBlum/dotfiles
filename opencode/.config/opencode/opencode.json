@@ -5,7 +5,7 @@
     "./plugins/superpowers/.opencode/plugins/superpowers.js"
   ],
   "server": {
-    "port": 3010,
+    "port": 3011,
     "hostname": "0.0.0.0"
   },
   "model": "github-copilot/gpt-5-mini",
