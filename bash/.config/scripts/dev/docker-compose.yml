@@ -1,0 +1,94 @@
+services:
+  dev:
+    image: "${DOCKER_DEV_ENV}:${DOCKER_DEV_TAG}"
+    container_name: dev
+    hostname: dev
+    privileged: true
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 24g
+    environment:
+      TZ: "Europe/Berlin"
+      GIT_EMAIL: "${GIT_EMAIL}"
+      GIT_USER: "${GIT_USER}"
+      GIT_SIGNINGKEY: "${GIT_SIGNINGKEY}"
+      GEMINI_API_KEY: "${GEMINI_API_KEY}"
+      CLAUDE_API_KEY: "${CLAUDE_API_KEY}"
+      GOOGLE_CLOUD_PROJECT_ID: "${GOOGLE_CLOUD_PROJECT_ID}"
+      HISTFILE: "/root/.history/.bash_history"
+      CUSTOM_ENV_VARS: "${CUSTOM_ENV_VARS}"
+    ports:
+      - "3010:3010"
+
+    volumes:
+      # SSH keys
+      - type: bind
+        source: "${SSH_DIRECTORY}"
+        target: /root/.ssh
+      # npmrc file
+      - type: bind
+        source: "${NPM_FILE}"
+        target: /root/.npmrc.host
+      # GPG directory (maps expected files)
+      - type: bind
+        source: "${GPG_DIRECTORY}/pubring.kbx"
+        target: /root/.gnupg/pubring.kbx
+      - type: bind
+        source: "${GPG_DIRECTORY}/trustdb.gpg"
+        target: /root/.gnupg/trustdb.gpg
+      - type: bind
+        source: "${GPG_DIRECTORY}/private-keys-v1.d"
+        target: /root/.gnupg/private-keys-v1.d
+      - type: bind
+        source: "${OBSIDIAN_VAULT_DIRECTORY}"
+        target: /root/obsidian-vault
+      - type: bind
+        source: "/root/.gnupg/S.gpg-agent.ssh"
+        target: /root/.gnupg/S.gpg-agent.ssh
+      - type: bind
+        source: "/root/.gnupg/S.gpg-agent"
+        target: /root/.gnupg/S.gpg-agent
+      # Shared dir
+      - type: bind
+        source: "${SHARED_DIRECTORY}"
+        target: /root/shared
+      # kube config
+      - type: bind
+        source: "${KUBE_DIRECTORY}"
+        target: /root/.kube
+      # Docker socket 
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+
+      # Named volumes
+      - dev-history:/root/.history
+      - dev-local:/root/.local
+      - dev-pipx:/root/.pipx
+      - dev-npm:/root/.npm
+      - dev-copilot:/root/.config/github-copilot
+      - dev-azure:/root/.azure
+    working_dir: /root/workspace
+
+volumes:
+  dev-history:
+    name: dev-history
+    driver: local
+  dev-local:
+    name: dev-local
+    driver: local
+  dev-pipx:
+    name: dev-pipx
+    driver: local
+  dev-npm:
+    name: dev-npm
+    driver: local
+  dev-copilot:
+    name: dev-copilot
+    driver: local
+  dev-azure:
+    name: dev-azure
+    driver: local
