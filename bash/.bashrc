@@ -19,7 +19,7 @@ export GOOGLE_API_KEY=$GEMINI_API_KEY
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 alias llm="opencode attach localhost:3010 --dir ."
-alias dev="~/.config/bash/scripts/dev.sh"
+alias dev="~/.config/scripts/dev.sh"
 
 # shellcheck shell=bash
 
