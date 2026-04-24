@@ -16,5 +16,15 @@
         "/mcpworkspace"
       ]
     }
+    ,
+    "openmemory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-http",
+        "--url",
+        "http://localhost:8080/mcp"
+      ]
+    }
   }
 }

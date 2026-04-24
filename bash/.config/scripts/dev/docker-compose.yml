@@ -22,7 +22,6 @@ services:
       CUSTOM_ENV_VARS: "${CUSTOM_ENV_VARS}"
     ports:
       - "3010:3010"
-
     volumes:
       # SSH keys
       - type: bind
@@ -73,6 +72,22 @@ services:
       - dev-azure:/root/.azure
     working_dir: /root/workspace
 
+  openmemory-backend:
+    image: "ghcr.io/steveblum/openmemory:backend-v1.2.3"
+    container_name: openmemory-backend
+    restart: unless-stopped
+    environment:
+      - OM_PORT=8080
+      - OM_MODE="standard"
+      - OM_METADATA_BACKEND="sqlite"
+      - OM_DB_PATH="/data/openmemory.sqlite"
+      - OM_TIER="hybrid"
+      - OM_API_KEY="ABC"
+    ports:
+      - "8080:8080"
+    volumes:
+      - openmemory-data:/data
+
 volumes:
   dev-history:
     name: dev-history
@@ -91,4 +106,7 @@ volumes:
     driver: local
   dev-azure:
     name: dev-azure
+    driver: local
+  openmemory-data:
+    name: openmemory-data
     driver: local

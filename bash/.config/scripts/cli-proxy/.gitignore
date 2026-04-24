@@ -1,0 +1,8 @@
+cliproxy-data/auths/*
+!cliproxy-data/auths/.gitkeep
+cliproxy-data/dashboard_backups/*
+!cliproxy-data/dashboard_backups/.gitkeep
+cliproxy-data/postgres/*
+!cliproxy-data/postgres/.gitkeep
+cliproxy-data/logs/*
+!cliproxy-data/logs/.gitkeep
