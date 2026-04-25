@@ -16,6 +16,10 @@ fi
 
 export ANTHROPIC_API_KEY=$CLAUDE_API_KEY
 export GOOGLE_API_KEY=$GEMINI_API_KEY
+# If we are running in a dev container, this variable is already set. if we run locally, we want to default to localhost.
+if [[ -z "${OM_URL:-}" ]]; then
+    export OM_URL="http://localhost:3030"
+fi
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 alias llm="opencode attach localhost:3010 --dir ."

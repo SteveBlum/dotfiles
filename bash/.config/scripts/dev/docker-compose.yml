@@ -20,6 +20,7 @@ services:
       GOOGLE_CLOUD_PROJECT_ID: "${GOOGLE_CLOUD_PROJECT_ID}"
       HISTFILE: "/root/.history/.bash_history"
       CUSTOM_ENV_VARS: "${CUSTOM_ENV_VARS}"
+      OM_URL: http://openmemory-backend:3030
     ports:
       - "3010:3010"
     networks:

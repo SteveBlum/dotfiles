@@ -60,7 +60,7 @@
     "openmemory": {
       "enabled": true,
       "type": "remote",
-      "url": "http://localhost:3030/mcp",
+      "url": "{env:OM_URL}/mcp",
       "headers": {
         "X-API-Key": "ABC"
       }
