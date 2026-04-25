@@ -56,6 +56,16 @@
       }
     }
   },
+  "mcp": {
+    "openmemory": {
+      "enabled": true,
+      "type": "remote",
+      "url": "{env:OM_URL}/mcp",
+      "headers": {
+        "X-API-Key": "ABC"
+      }
+    }
+  },
   "permission": {
    "external_directory": {
       "/tmp/**": "allow"
