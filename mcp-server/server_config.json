@@ -1,29 +1,12 @@
 {
   "mcpServers": {
-    "git": {
-      "command": "uvx",
-      "args": ["mcp-server-git"]
-    },
-    "mcp-server-commands": {
-      "command": "npx",
-      "args": ["mcp-server-commands"]
-    },
-    "filesystem": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "/mcpworkspace"
-      ]
-    }
-    ,
     "openmemory": {
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-http",
         "--url",
-        "http://localhost:8080/mcp"
+        "http://localhost:3030/mcp"
       ]
     }
   }
