@@ -5,7 +5,7 @@ k9s:
   readOnly: false
   noExitOnCtrlC: false
   ui:
-    skin: catppuccin-mocha-transparent
+    skin: gruvbox-dark-transparent
     enableMouse: false
     headless: false
     logoless: false
