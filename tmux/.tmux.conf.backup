@@ -3,7 +3,7 @@ bind r source-file ~/.tmux.conf
 set -g prefix C-s
 set -g mouse on
 set -g allow-passthrough on
-set-option -g focus-events on 
+set-option -g focus-events on
 set-option -a terminal-features 'xterm:RGB'
 set-option -g status-position top
 
@@ -14,18 +14,16 @@ bind-key l select-pane -R
 
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin '2kabhishek/tmux2k'
+set -g @plugin 'egel/tmux-gruvbox'
+set -g @plugin 'tmux-plugins/tmux-cpu'
 set -g @plugin 'christoomey/vim-tmux-navigator'
 set -g @plugin 'joshmedeski/tmux-nerd-font-window-name'
 set -g @plugin 'sainnhe/tmux-fzf'
 
-# use a theme
-set -g @tmux2k-theme 'gruvbox'
-
-# to show icons only
-set -g @tmux2k-icons-only 'false'
-set -g @tmux2k-left-plugins "docker cwd git"
-set -g @tmux2k-right-plugins "cpu ram time weather"
+set -g @tmux-gruvbox 'dark'
+set -g @tmux-gruvbox-left-status-a '#S'
+set -g @tmux-gruvbox-statusbar-alpha 'true'
+set -g @tmux-gruvbox-right-status-z '#{cpu_percentage}   #h '
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf).
 # Guarded so a fresh machine/container without TPM installed doesn't error out.

@@ -1,98 +1,251 @@
-@import url('../../.cache/wal/colors-waybar.css');
+/* Reset everything except dropdowns, popups and tooltips */
+*:not(tooltip):not(menu):not(menuitem):not(check):not(radio):not(separator) {
+    all: unset;
+}
 
-* {
-    font-size:15px;
-    font-family: "JetBrainsMono Nerd Font";
+#waybar {
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 15px;
 }
-window#waybar{
-    all:unset;
-}
+
 .modules-left {
-    padding:7px;
-    margin:10px 0px 5px 10px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+    margin: 3px 0 3px 6px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 10px;
+    background: rgba(40, 40, 40, 0.7);
 }
+
 .modules-center {
-    padding:7px;
-    margin:10px 0px 5px 0px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+    margin: 3px 0;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 10px;
+    background: rgba(40, 40, 40, 0.7);
 }
+
 .modules-right {
-    padding:7px;
-    margin: 10px 10px 5px 0px;
-    border-radius:10px;
-    background: alpha(@background,.6);
-    box-shadow: 0px 0px 2px rgba(0, 0, 0, .6);
+    margin: 3px 6px 3px 0;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 10px;
+    background: rgba(40, 40, 40, 0.7);
 }
-tooltip {
-    background:@background;
-    color: @color7;
-}
-#clock:hover, #custom-pacman:hover, #custom-notification:hover,#bluetooth:hover,#network:hover,#battery:hover, #cpu:hover,#memory:hover,#temperature:hover{
-    transition: all .3s ease;
-    color:@color7;
-}
-#custom-notification {
-    padding: 0px 5px;
-    transition: all .3s ease;
-}
-#clock{
-    padding: 0px 5px;
-    transition: all .3s ease;
-}
+
 #workspaces {
-    padding: 0px 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+    min-height: 20px
 }
+
 #workspaces button {
-    all:unset;
-    padding: 0px 5px;
-    transition: all .2s ease;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 2px;
+    min-width: 0px;
+    color: #689d6a;
 }
-#workspaces button:hover {
-    color:rgba(0,0,0,0);
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-    transition: all 1s ease;
-}
+
 #workspaces button.active {
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+    color: #282828;
+    background: #98971a;
 }
-#workspaces button.empty {
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .2);
+
+#workspaces button.urgent {
+    color: #fb4934;
 }
-#workspaces button.empty:hover {
-    border: none;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, .5);
-    transition: all 1s ease;
+
+/* For when the mouse is hovering on workspace button */
+#workspaces button:hover {
+    box-shadow: 0 0 0 1px #98971a;
 }
-#workspaces button.empty.active {
-    border: none;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .5);
+
+#tray {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    border-radius: 4px;
+    color: #ebdbb2;
 }
-#group-expand{
-    padding: 0px 5px;
-    transition: all .3s ease; 
+
+#clock {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 11px;
+    color: #ebdbb2;
 }
-#custom-expand{
-    padding: 0px 5px;
-    color:alpha(@foreground,.2);
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, .7);
-    transition: all .3s ease; 
+
+#idle_inhibitor {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    color: #d79932;
 }
-#custom-expand:hover{
-    text-shadow: 0px 0px 2px rgba(255, 255, 255, .5);
+
+#pulseaudio {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-radius: 11px;
+    color: #689d6a;
 }
-#cpu,#memory,#temperature{
-    padding: 0px 5px;
-    transition: all .3s ease; 
+
+#network {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-radius: 11px;
+    color: #a89984;
 }
-#custom-endpoint{
-    color:transparent;
-    text-shadow: 0px 0px 1.5px rgba(0, 0, 0, 1);
+
+#cpu {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    color: #a89984;
+}
+
+#backlight {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    border-radius: 4px;
+    color: #ebdbb2;
+}
+
+#backlight.4 {
+    color: #d56d0e;
+}
+
+#backlight.3 {
+    color: #d56d0e;
+}
+
+#backlight.2 {
+    color: #d56d0e;
+}
+
+#backlight.1 {
+    color: #d56d0e;
+}
+
+#language {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    border-radius: 4px;
+    color: #d79932;
+}
+
+#memory {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    border-top-right-radius: 11px;
+    border-bottom-right-radius: 11px;
+    color: #98971a;
+}
+
+#power-profiles-daemon {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    color: #d79921;
+}
+
+#power-profiles-daemon.performance {
+    color: #d65d0e;
+}
+
+#power-profiles-daemon.power-saver {
+    color: #98971a
+}
+
+#battery {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-right: 4px;
+    margin-left: 4px;
+    padding-right: 6px;
+    padding-left: 6px;
+    border-radius: 4px;
+}
+
+#battery.tooMuch {
+    color: #bfff64;
+}
+
+#battery.good {
+    color: #5cff5c
+}
+
+#battery.meh {
+    color: #bfff64
+}
+
+#battery.warning {
+    color: #fc9b5a
+}
+
+#battery.critical {
+    color: #e33d3d
+}
+
+#battery.charging {
+    color: #64ff64;
+}
+
+#battery.charging.tooMuch {
+    color: #bfff64;
+}
+
+#battery.plugged {
+    color: #64ff64;
+}
+
+#battery.plugged.tooMuch {
+    color: #bfff64;
+}
+
+#battery.full {
+    color: #bfff64;
+}
+
+#custom-power {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    color: #ebdbb2;
+}
+
+#custom-notification {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    padding-right: 8px;
+    padding-left: 8px;
+    color: #ebdbb2;
 }
