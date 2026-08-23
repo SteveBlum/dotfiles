@@ -2,7 +2,8 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     "opencode-gemini-auth@latest",
-    "./plugins/superpowers/.opencode/plugins/superpowers.js"
+    "./plugins/superpowers/.opencode/plugins/superpowers.js",
+    "opencode-sessions-explorer"
   ],
   "server": {
     "port": 3011,
@@ -13,39 +14,6 @@
   "lsp": true,
   "formatter": true,
   "share": "disabled",
-  "agent": {
-    "answer": {
-      "mode": "primary",
-      "description": "Intended for answering general questions using web search",
-      "model": "google/gemini-2.5-flash",
-      "provider": "google",
-      "prompt": "You are a helpful assistant that provides accurate and concise answers to user questions. If required, use web search to find up-to-date information. Always cite your sources.",
-      "temperature": 0.2,
-      "tools": {
-        "*": false,
-        "webfetch": true,
-        "question": true
-      }
-    },
-    "notetaker": {
-      "mode": "primary",
-      "description": "Creates and updates personal notes in Obsidian vault as Markdown files with YAML frontmatter.",
-      "model": "github-copilot/gpt-5-mini",
-      "prompt": "You are a notetaking assistant for Obsidian. For notetaking, use markdown and include YAML frontmatter with title and date. Use all available markdown features as well as Obsidian features such as tags. Obsidian notes are exclusively stored in /root/obsidian-vault. When you are triggered, first list the available files in this directory. Determine whether the topic can be added to an existing note - if not, create a new one. If you create new notes, do this in a subdirectory called \"agent\".",
-      "temperature": 0.2,
-      "permission": {
-        "external_directory": {
-          "/root/obsidian-vault/**": "allow"
-        },
-        "edit": {
-          "/root/obsidian-vault/**": "allow"
-        },
-        "list": "allow",
-        "read": "allow",
-        "question": "allow"
-      }
-    }
-  },
   "provider": {
     "anthropic": {
       "models": {},
@@ -56,6 +24,21 @@
     "google": {
       "options": {
         "projectId": "{env:GOOGLE_CLOUD_PROJECT_ID}"
+      }
+    },
+    "ollama": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://host.docker.internal:11434/v1"
+      },
+      "models": {
+        "gemma4:e4b": {
+          "name": "gemma4:e4b",
+          "limit": {
+            "context": 32786,
+            "output": 4096
+          }
+        }
       }
     }
   },
@@ -71,7 +54,8 @@
   },
   "permission": {
    "external_directory": {
-      "/tmp/**": "allow"
+      "/tmp/**": "allow",
+      "~/.local/share/opencode/**": "allow"
     },
     "edit": {
       "/tmp/**": "allow"
