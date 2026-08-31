@@ -1,3 +1,10 @@
+if [[ -r "$HOME/.cargo/env" ]]; then
+  . "$HOME/.cargo/env"
+fi
+if [[ -r "$HOME/.bashrc.env" ]]; then
+  . "$HOME/.bashrc.env"
+fi
+
 # Enable the subsequent settings only in interactive sessions
 case $- in
   *i*) ;;
@@ -6,12 +13,6 @@ esac
 
 if [[ -r "$HOME/.config/osh.env" ]]; then
   . "$HOME/.config/osh.env"
-fi
-if [[ -r "$HOME/.cargo/env" ]]; then
-  . "$HOME/.cargo/env"
-fi
-if [[ -r "$HOME/.bashrc.env" ]]; then
-  . "$HOME/.bashrc.env"
 fi
 
 export ANTHROPIC_API_KEY=$CLAUDE_API_KEY
