@@ -10,7 +10,12 @@ return {
 				null_ls.builtins.formatting.stylua,
 				null_ls.builtins.formatting.prettier,
 				null_ls.builtins.completion.spell,
-			  require("none-ls.diagnostics.eslint_d"),
+			  require("none-ls.diagnostics.eslint_d").with({
+          condition = function(utils)
+            return utils.root_has_file_matches("^%.eslintrc")
+                or utils.root_has_file_matches("^eslint%.config")
+          end,
+        }),
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.isort
       },
