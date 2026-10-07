@@ -23,7 +23,7 @@ if [[ -z "${OM_URL:-}" ]]; then
 fi
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-alias llm="opencode attach localhost:3010 --dir ."
+alias llm="opencode ."
 alias dev="~/.config/scripts/dev.sh"
 
 # shellcheck shell=bash
