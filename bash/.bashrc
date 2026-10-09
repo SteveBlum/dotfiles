@@ -21,8 +21,11 @@ export GOOGLE_API_KEY=$GEMINI_API_KEY
 if [[ -z "${OM_URL:-}" ]]; then
     export OM_URL="http://localhost:3030"
 fi
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+if TTY="$(tty 2>/dev/null)"; then
+  export GPG_TTY="$TTY"
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  gpg-connect-agent updatestartuptty /bye > /dev/null
+fi
 alias llm="opencode ."
 alias dev="~/.config/scripts/dev.sh"
 
