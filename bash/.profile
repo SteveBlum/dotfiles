@@ -29,7 +29,9 @@ test -z "$PROFILEREAD" && . /etc/profile || true
 
 # from https://samy.blog/yubikey-opensuse-tumbleweed/
 
-export GPG_TTY="$(tty)"
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-gpg-connect-agent updatestartuptty /bye > /dev/null
+if TTY="$(tty 2>/dev/null)"; then
+  export GPG_TTY="$TTY"
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+  gpg-connect-agent updatestartuptty /bye > /dev/null
+fi
 . "$HOME/.cargo/env"
