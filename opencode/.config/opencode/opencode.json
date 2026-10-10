@@ -1,9 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": [
-    "./plugins/superpowers/.opencode/plugins/superpowers.js",
-    "opencode-sessions-explorer"
-  ],
   "model": "github-copilot/claude-sonnet-5",
   "small_model": "github-copilot/gpt-5-mini",
   "lsp": true,
