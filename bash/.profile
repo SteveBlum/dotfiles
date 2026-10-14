@@ -32,6 +32,6 @@ test -z "$PROFILEREAD" && . /etc/profile || true
 if TTY="$(tty 2>/dev/null)"; then
   export GPG_TTY="$TTY"
   export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-  gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1 &
+  gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1 & disown
 fi
 . "$HOME/.cargo/env"
