@@ -10,7 +10,7 @@ fi
 
 action=$(echo "$action" | tr '[:upper:]' '[:lower:]')
 case "$action" in
-    start|stop|restart|status|logs)
+    start|stop|attach|restart|status|logs)
         ;; 
     *)
         echo "Invalid action: $action"
