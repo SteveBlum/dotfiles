@@ -4,7 +4,7 @@ name="$1"
 action="${2:-start}"
 
 if [ -z "$name" ]; then
-    echo "Usage: ./dev.sh <environment_name> [start|stop|restart|status|logs]"
+    echo "Usage: ./dev.sh <environment_name> [start|stop|attach|restart|status|logs]"
     exit 1
 fi
 
@@ -62,6 +62,8 @@ if [ "$is_path" = true ]; then
         invoke_compose up -d
     elif [ "$action" = "stop" ]; then
         invoke_compose down
+    elif [ "$action" = "attach" ]; then
+        invoke_compose exec dev tmux new-session -t 0 -s secondary
     elif [ "$action" = "status" ]; then
         invoke_compose ps
     elif [ "$action" = "logs" ]; then
@@ -92,6 +94,14 @@ else
         fi
         export WORKSPACE_VOLUME="$name"
         invoke_compose down
+
+    elif [ "$action" = "attach" ]; then
+        if [ ! -f "$ENV_FILE" ]; then
+            echo "Environment file $ENV_FILE not found. Run start to initialize the workspace."
+            exit 1
+        fi
+        export WORKSPACE_VOLUME="$name"
+        invoke_compose exec dev tmux new-session -t 0 -s secondary
 
     elif [ "$action" = "status" ]; then
         if [ ! -f "$ENV_FILE" ]; then
