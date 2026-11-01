@@ -95,12 +95,11 @@ ARMOR_ARG=""
 if [[ "$DECRYPT" -eq 1 ]]; then
     [[ -n "$FINGERPRINT" ]] && FINGERPRINT_ARG="--local-user $FINGERPRINT"
     [[ -n "$OUTPUT" ]] && OUTPUT_ARG="--output $OUTPUT"
-    gpg --decrypt $FINGERPRINT_ARG $OUTPUT_ARG $FILENAME
+    gpg --decrypt --quiet $FINGERPRINT_ARG $OUTPUT_ARG $FILENAME
 else
     [[ -n "$FINGERPRINT" ]] && FINGERPRINT_ARG="--recipient $FINGERPRINT"
     [[ -n "$OUTPUT" ]] && OUTPUT_ARG="--output $OUTPUT"
     # Without a file, output defaults to stdout; armor it so it stays text-safe
     [[ -z "$FILENAME" && -z "$OUTPUT" ]] && ARMOR_ARG="--armor"
-    echo "gpg --encrypt --default-recipient-self \"$FINGERPRINT_ARG\" \"$OUTPUT_ARG\" \"$ARMOR_ARG\" \"$FILENAME\""
-    gpg --encrypt --default-recipient-self $FINGERPRINT_ARG $OUTPUT_ARG $ARMOR_ARG $FILENAME
+    gpg --encrypt --quiet --default-recipient-self $FINGERPRINT_ARG $OUTPUT_ARG $ARMOR_ARG $FILENAME
 fi
