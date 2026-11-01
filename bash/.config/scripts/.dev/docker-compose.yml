@@ -41,8 +41,8 @@ services:
         target: /root/.npmrc.host
       # GPG directory (maps expected files)
       - type: bind
-        source: "${GPG_DIRECTORY}/pubring.kbx"
-        target: /root/.gnupg/pubring.kbx
+        source: "${GPG_DIRECTORY}/pubring.gpg"
+        target: /root/.gnupg/pubring.gpg
       - type: bind
         source: "${GPG_DIRECTORY}/trustdb.gpg"
         target: /root/.gnupg/trustdb.gpg
@@ -53,10 +53,10 @@ services:
         source: "${OBSIDIAN_VAULT_DIRECTORY}"
         target: /root/obsidian-vault
       - type: bind
-        source: "/root/.gnupg/S.gpg-agent.ssh"
+        source: "${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
         target: /root/.gnupg/S.gpg-agent.ssh
       - type: bind
-        source: "/root/.gnupg/S.gpg-agent"
+        source: "${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.extra"
         target: /root/.gnupg/S.gpg-agent
       # Shared dir
       - type: bind
