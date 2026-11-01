@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -euo pipefail
+
+# Defaults
+DECRYPT=0
+FINGERPRINT="${GPG_FINGERPRINT:-}"
+OUTPUT=""
+
+# Command usage
+usage() {
+    cat << EOF
+Usage: $(basename "$0") [OPTIONS] [file]
+       <something> | $(basename "$0") [OPTIONS]
+
+Command uses GPG_FINGERPRINT or the default GPG key to encrypt or decrypt a file,
+or piped stdin if no file is given.
+
+Options:
+  -d, --decrypt                  Decrypt file instead of encrypting
+  -f, --fingerprint "<string>"   GPG fingerprint to use for encryption/decryption
+  -o, --output "<file>"          Output file (default: <file>.gpg for encrypt, <file> without .gpg for decrypt;
+                                  when reading from stdin, output defaults to stdout)
+  -h, --help                     Display this help message
+
+Examples:
+  $(basename "$0") file.txt
+  $(basename "$0") -f "0000 1111 2222 3333 4444  AAAA BBBB CCCC DDDD EEEE" file.txt
+  $(basename "$0") --decrypt -f "0000 1111 2222 3333 4444  AAAA BBBB CCCC DDDD EEEE" file.txt.gpg
+  $(basename "$0") -o secret.txt.gpg file.txt
+  echo "some secret" | $(basename "$0")
+  $(basename "$0") --decrypt < secret.txt.gpg
+EOF
+    exit 1
+}
+
+# Argument parsing
+POSITIONAL_ARGS=()
+
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -d|--decrypt)
+            DECRYPT=1
+            shift
+            ;;
+        -f|--fingerprint)
+            if [[ -n "${2:-}" && "$2" != -* ]]; then
+                FINGERPRINT="$2"
+                shift 2
+            else
+                echo "Error: Fingerprint is missing" >&2
+                usage
+            fi
+            ;;
+        -o|--output)
+            if [[ -n "${2:-}" && "$2" != -* ]]; then
+                OUTPUT="$2"
+                shift 2
+            else
+                echo "Error: Output file is missing" >&2
+                usage
+            fi
+            ;;
+        -h|--help)
+            usage
+            ;;
+        -*)
+            echo "Error: Unknown option: $1" >&2
+            usage
+            ;;
+        *)
+            # Collect positional arguments
+            POSITIONAL_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}"
+FILENAME=""
+if [[ "$#" -gt 0 ]]; then
+    FILENAME="$1"
+    shift
+elif [[ -t 0 ]]; then
+    echo "Error: Missing required positional argument 'file' (or pipe data via stdin)." >&2
+    usage
+fi
+
+# Command execution
+FINGERPRINT_ARG=""
+OUTPUT_ARG=""
+ARMOR_ARG=""
+
+if [[ "$DECRYPT" -eq 1 ]]; then
+    [[ -n "$FINGERPRINT" ]] && FINGERPRINT_ARG="--local-user $FINGERPRINT"
+    [[ -n "$OUTPUT" ]] && OUTPUT_ARG="--output $OUTPUT"
+    gpg --decrypt $FINGERPRINT_ARG $OUTPUT_ARG $FILENAME
+else
+    [[ -n "$FINGERPRINT" ]] && FINGERPRINT_ARG="--recipient $FINGERPRINT"
+    [[ -n "$OUTPUT" ]] && OUTPUT_ARG="--output $OUTPUT"
+    # Without a file, output defaults to stdout; armor it so it stays text-safe
+    [[ -z "$FILENAME" && -z "$OUTPUT" ]] && ARMOR_ARG="--armor"
+    echo "gpg --encrypt --default-recipient-self \"$FINGERPRINT_ARG\" \"$OUTPUT_ARG\" \"$ARMOR_ARG\" \"$FILENAME\""
+    gpg --encrypt --default-recipient-self $FINGERPRINT_ARG $OUTPUT_ARG $ARMOR_ARG $FILENAME
+fi

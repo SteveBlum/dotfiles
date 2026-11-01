@@ -3,14 +3,14 @@
 name="$1"
 
 if [ -z "$name" ]; then
-    echo "Usage: ./dev-init.sh <environment_name>"
+    echo "Usage: ./dev-init <environment_name>"
     exit 1
 fi
 
 SCRIPT_DIR=$(dirname "$0")
-TEMPLATE_FILE="$SCRIPT_DIR/.env.template"
-OUTPUT_FILE="$SCRIPT_DIR/$name.env"
-LAST_ENV_FILE="$SCRIPT_DIR/.env.last"
+TEMPLATE_FILE="$SCRIPT_DIR/.dev/profiles/.env.template"
+OUTPUT_FILE="$SCRIPT_DIR/.dev/profiles/$name.env"
+LAST_ENV_FILE="$SCRIPT_DIR/.dev/profiles/.env.last"
 
 if [ ! -f "$TEMPLATE_FILE" ]; then
     echo "Error: .env.template not found at '$TEMPLATE_FILE'." >&2
