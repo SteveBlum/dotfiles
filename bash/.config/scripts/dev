@@ -45,8 +45,11 @@ invoke_compose() {
 # Main actions
 if [ "$is_path" = true ]; then
     echo "Using bind-mounted workspace at '$WORKSPACE_PATH'."
-    if [ "$action" = "start" ] || [ "$action" = "restart" ]; then
+    if [ "$action" = "start" ]; then
         echo "Bringing up compose (path override)..."
+        invoke_compose up -d
+    elif [ "$action" = "restart" ]; then
+        invoke_compose down
         invoke_compose up -d
     elif [ "$action" = "stop" ]; then
         invoke_compose down
