@@ -21,6 +21,8 @@ services:
       HISTFILE: "/root/.history/.bash_history"
       OM_URL: http://openmemory-backend:3030
       GPG_FINGERPRINT: "${GPG_FINGERPRINT}"
+      BWS_OPENCODE_TOKEN: "${BWS_OPENCODE_TOKEN}"
+      BWS_OPENCODE_PROJECT_ID: "${BWS_OPENCODE_PROJECT_ID}"
       BWS_ACCESS_TOKEN: "${BWS_ACCESS_TOKEN}"
       BWS_PROJECT_ID: "${BWS_PROJECT_ID}"
     ports:
