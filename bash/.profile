@@ -38,6 +38,3 @@ fi
 if [[ -r "$HOME/.cargo.env" ]]; then
   . "$HOME/.cargo/env"
 fi
-if [[ -r "$HOME/.bashrc.env" ]]; then
-  . "$HOME/.bashrc.env"
-fi
