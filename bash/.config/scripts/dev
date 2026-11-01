@@ -21,27 +21,15 @@ esac
 
 # Resolve script directory to an absolute path
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEV_DIR="$SCRIPT_DIR/dev"
-ENV_FILE="$SCRIPT_DIR/$name.env"
-DEV_INIT_SCRIPT="$SCRIPT_DIR/dev-init.sh"
+DEV_DIR="$SCRIPT_DIR/.dev"
+ENV_FILE="$SCRIPT_DIR/.dev/profiles/$name.env"
+DEV_INIT_SCRIPT="$SCRIPT_DIR/dev-init"
 
 dev_init_called=false
 # Determine if this is a bind-mount (path) workspace or a named-volume workspace
 is_path=false
 if [ -d "$PWD/$name" ]; then
     is_path=true
-fi
-
-# Set ENV_FILE appropriately (for path workspaces prefer DEV_DIR/.env.last)
-if [ "$is_path" = true ]; then
-    export WORKSPACE_PATH="$PWD/$name"
-    if [ -f "$DEV_DIR/.env.last" ]; then
-        ENV_FILE="$DEV_DIR/.env.last"
-    else
-        ENV_FILE="$SCRIPT_DIR/.env.last"
-    fi
-else
-    ENV_FILE="$SCRIPT_DIR/$name.env"
 fi
 
 # Helper to invoke docker compose with the chosen env file and compose files
@@ -78,7 +66,7 @@ else
                 "$DEV_INIT_SCRIPT" "$name"
                 dev_init_called=true
             else
-                echo "Error: dev-init.sh not found at $DEV_INIT_SCRIPT. Cannot initialize environment."
+                echo "Error: dev-init not found at $DEV_INIT_SCRIPT. Cannot initialize environment."
                 exit 1
             fi
         fi

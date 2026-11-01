@@ -1,2 +1,2 @@
-main.env
+*.env
 .env.last

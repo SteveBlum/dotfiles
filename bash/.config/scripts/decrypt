@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# Exit immediately if a command exits with a non-zero status
+set -euo pipefail
+
+# Command usage
+usage() {
+    cat << EOF
+Usage: $(basename "$0") [OPTIONS] file
+
+Command uses GPG_FINGERPRINT or the default GPG key to decrypt a file.
+
+Options:
+  -f, --fingerprint "<string>"   GPG fingerprint to use for decryption
+  -o, --output "<file>"          Output file (default: <file> without .gpg)
+  -h, --help                     Display this help message
+
+Examples:
+  $(basename "$0") file.txt.gpg
+  $(basename "$0") -f "0000 1111 2222 3333 4444  AAAA BBBB CCCC DDDD EEEE" file.txt.gpg
+  $(basename "$0") -o secret.txt file.txt.gpg
+EOF
+    exit 1
+}
+
+for arg in "$@"; do
+    case "$arg" in
+        -h|--help)
+            usage
+            ;;
+    esac
+done
+
+exec "encrypt" --decrypt "$@"

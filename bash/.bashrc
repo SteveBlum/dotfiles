@@ -27,7 +27,6 @@ if TTY="$(tty 2>/dev/null)"; then
   gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1 & disown
 fi
 alias llm="opencode ."
-alias dev="~/.config/scripts/dev.sh"
 
 # shellcheck shell=bash
 
