@@ -34,4 +34,10 @@ if TTY="$(tty 2>/dev/null)"; then
   export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
   gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1 & disown
 fi
-. "$HOME/.cargo/env"
+
+if [[ -r "$HOME/.cargo.env" ]]; then
+  . "$HOME/.cargo/env"
+fi
+if [[ -r "$HOME/.bashrc.env" ]]; then
+  . "$HOME/.bashrc.env"
+fi
