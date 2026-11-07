@@ -1,0 +1,55 @@
+#!/bin/bash
+
+action="${1:-start}"
+action=$(echo "$action" | tr '[:upper:]' '[:lower:]')
+case "$action" in
+    start|stop|restart|status|logs)
+        ;;
+    *)
+        echo "Invalid action: $action"
+        echo "Usage: ./speaches [start|stop|restart|status|logs]"
+        exit 1
+        ;;
+esac
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SPEACHES_DIR="$SCRIPT_DIR/.speaches"
+variant=$(echo "${SPEACHES_VARIANT:-cpu}" | tr '[:upper:]' '[:lower:]')
+
+case "$variant" in
+    cuda|gpu)
+        compose_file="$SPEACHES_DIR/docker-compose.cuda.yml"
+        ;;
+    cpu)
+        compose_file="$SPEACHES_DIR/docker-compose.yml"
+        ;;
+    *)
+        echo "Unknown variant '$variant' (set via \$SPEACHES_VARIANT), falling back to cpu"
+        variant="cpu"
+        compose_file="$SPEACHES_DIR/docker-compose.yml"
+        ;;
+esac
+
+echo "Using '$variant' variant ($compose_file)."
+invoke_compose() {
+    docker compose -f "$compose_file" "$@"
+}
+
+case "$action" in
+    start)
+        invoke_compose up -d
+        ;;
+    stop)
+        invoke_compose down
+        ;;
+    restart)
+        invoke_compose down
+        invoke_compose up -d
+        ;;
+    status)
+        invoke_compose ps
+        ;;
+    logs)
+        invoke_compose logs -f
+        ;;
+esac
