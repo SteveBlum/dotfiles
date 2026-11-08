@@ -1,0 +1,82 @@
+#!/bin/bash
+
+action="${1:-start}"
+action=$(echo "$action" | tr '[:upper:]' '[:lower:]')
+case "$action" in
+    start|stop|restart|status|logs|setup)
+        ;;
+    *)
+        echo "Invalid action: $action"
+        echo "Usage: ./hermes [start|stop|restart|status|logs|setup]"
+        exit 1
+        ;;
+esac
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+HERMES_DIR="$SCRIPT_DIR/.hermes"
+variant=$(echo "${HERMES_VARIANT:-directory}" | tr '[:upper:]' '[:lower:]')
+
+export PUID="$(id -u)"
+export PGID="$(id -g)"
+
+case "$variant" in
+    directory|dir|bind)
+        compose_file="$HERMES_DIR/docker-compose.directory.yml"
+        ;;
+    volume)
+        compose_file="$HERMES_DIR/docker-compose.yml"
+        ;;
+    *)
+        echo "Unknown variant '$variant' (set via \$HERMES_VARIANT), falling back to directory"
+        variant="directory"
+        compose_file="$HERMES_DIR/docker-compose.directory.yml"
+        ;;
+esac
+
+echo "Using '$variant' variant ($compose_file)."
+invoke_compose() {
+    docker compose -f "$compose_file" "$@"
+}
+
+ensure_config_files() {
+    mkdir -p "$HOME/.hermes"
+    cp -n "$HOME/.config/hermes/config.yaml" "$HOME/.hermes/config.yaml"
+    cp -n "$HOME/.config/hermes/SOUL.md" "$HOME/.hermes/SOUL.md"
+}
+
+sync_config_back() {
+    for f in config.yaml SOUL.md; do
+        src="$HOME/.hermes/$f"
+        dest="$HOME/.config/hermes/$f"
+        if [ -f "$src" ] && [ -e "$dest" ]; then
+            cp "$src" "$dest"
+        fi
+    done
+}
+
+case "$action" in
+    start)
+        ensure_config_files
+        invoke_compose up -d
+        ;;
+    stop)
+        invoke_compose down
+        sync_config_back
+        ;;
+    restart)
+        ensure_config_files
+        invoke_compose down
+        sync_config_back
+        invoke_compose up -d
+        ;;
+    status)
+        invoke_compose ps
+        ;;
+    logs)
+        invoke_compose logs -f
+        ;;
+    setup)
+        ensure_config_files
+        invoke_compose run --rm --name hermes-setup hermes setup
+        ;;
+esac
